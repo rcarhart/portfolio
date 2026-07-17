@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Animate dynamicSubtitle element
   const dynamicSubtitle = document.getElementById('dynamicSubtitle');
   dynamicSubtitle.style.transition = 'opacity 1s';
-  let texts = ["Data Visualization", "Data Engineering", "Analytics Engineering"];
+  let texts = ["Data Modeling & Warehousing", "Analytics Engineering", "BI & Dashboards", "AI & Automation"];
   let index = 0;
 
   const changeText = () => {
@@ -43,18 +43,52 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
     });
 });
-//-------hcatpcha-------//
-const form = document.getElementById('form');
+// ------- Contact form (Web3Forms) ------- //
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('form');
+    if (!form) return;
+    const submitBtn = form.querySelector('button[type=submit]');
+    const successMsg = form.querySelector('.form-messages.success');
+    const errorMsg = form.querySelector('.form-messages.error');
 
-form.addEventListener('submit', function(e) {
-
-    const hCaptcha = form.querySelector('textarea[name=h-captcha-response]').value;
-
-    if (!turnstileResponse) {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        alert("Please complete the security check")
-        return
-    }
+        successMsg.style.display = 'none';
+        errorMsg.style.display = 'none';
+
+        // Require the hCaptcha to be solved before sending (Web3Forms verifies it)
+        const token = form.querySelector('[name=h-captcha-response]')?.value;
+        if (!token) {
+            errorMsg.textContent = 'Please complete the security check.';
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+        try {
+            const res = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(Object.fromEntries(new FormData(form))),
+            });
+            const out = await res.json();
+            if (out.success) {
+                form.reset();
+                successMsg.style.display = 'block';
+            } else {
+                errorMsg.textContent = out.message || 'Something went wrong — please try again.';
+                errorMsg.style.display = 'block';
+            }
+        } catch {
+            errorMsg.textContent = 'Network error — please try again or email me directly.';
+            errorMsg.style.display = 'block';
+        } finally {
+            if (window.hcaptcha) window.hcaptcha.reset();
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send message';
+        }
+    });
 });
 
 // ------- Active navbar on scroll ------- //
