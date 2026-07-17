@@ -56,8 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
         successMsg.style.display = 'none';
         errorMsg.style.display = 'none';
 
-        // Require the Turnstile widget to be solved before sending
-        const token = form.querySelector('[name=cf-turnstile-response]')?.value;
+        // Require the hCaptcha to be solved before sending (Web3Forms verifies it)
+        const token = form.querySelector('[name=h-captcha-response]')?.value;
         if (!token) {
             errorMsg.textContent = 'Please complete the security check.';
             errorMsg.style.display = 'block';
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errorMsg.textContent = 'Network error — please try again or email me directly.';
             errorMsg.style.display = 'block';
         } finally {
-            if (window.turnstile) window.turnstile.reset();
+            if (window.hcaptcha) window.hcaptcha.reset();
             submitBtn.disabled = false;
             submitBtn.textContent = 'Send message';
         }
