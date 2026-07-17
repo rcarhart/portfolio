@@ -1,6 +1,8 @@
-# rcarhart.github.io — Personal Portfolio
+# Portfolio
 
-Ross Carhart's personal portfolio website. Deployed on GitHub Pages at `https://rcarhart.github.io`. Static site — no build process, no framework, no backend.
+Ross Carhart's personal portfolio website, live at `https://rosscarhart.com`. GitHub: `rcarhart/portfolio` (renamed from `rcarhart.github.io` 2026-07-17). Static site — no build process, no framework, no backend.
+
+Served by **Cloudflare Pages** (project `rcarhart-github-io`, same CF account as pittsburghdivorce). GitHub Pages hosting at rcarhart.github.io was retired 2026-07-17 — that URL no longer serves the site.
 
 ## Tech Stack
 
@@ -24,15 +26,18 @@ npx http-server
 
 Then open `http://localhost:8000`.
 
+## Git workflow
+
+**A push to `main` IS a production deploy** (Cloudflare Pages auto-deploys it to rosscarhart.com). `main` is branch-protected: direct pushes are blocked, a PR is required.
+
+1. Every change starts on a feature branch: `feat/<name>` or `fix/<name>`
+2. Push the branch and open a PR (`gh pr create`); Cloudflare Pages builds a branch preview (`<hash>.rcarhart-github-io.pages.dev`) — test there or locally with `python -m http.server 8000`
+3. Ross approves and merges the PR on GitHub
+4. The merge itself deploys prod. After merging, verify https://rosscarhart.com (see `/ship`)
+
 ## Deployment
 
-GitHub Pages auto-deploys on push to `master`. No CI/CD pipeline. Changes are live within seconds of pushing.
-
-```bash
-git push origin master
-```
-
-Several feature branches exist (`claude`, `design_changes`, `googletag`, `references_carousel`, `custom_contact_form-redirect`). Use PRs to merge into master.
+Cloudflare Pages auto-deploys `main` (renamed from `master` 2026-07-17) to https://rosscarhart.com via the GitHub integration. DNS: `rosscarhart.com` CNAME → `rcarhart-github-io.pages.dev`. The rosscarhart.com zone also carries `recipes.`/`photos.` tunnel subdomains and Cloudflare Email Routing MX — do not touch those records.
 
 ## Directory Structure
 
