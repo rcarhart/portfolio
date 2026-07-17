@@ -2,7 +2,7 @@
 // Verifies Turnstile server-side, then emails the inquiry via Resend.
 // Env (Pages secrets): TURNSTILE_SECRET_KEY, RESEND_API_KEY
 
-const CONTACT_TO = 'rcarhart2@gmail.com';
+const CONTACT_TO = 'carhartconsulting@outlook.com';
 // Sending domain verified in Resend; rosscarhart.com is not verified there yet.
 const CONTACT_FROM = 'Portfolio <leads@pittsburghdivorces.com>';
 
