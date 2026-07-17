@@ -3,8 +3,10 @@
 // Env (Pages secrets): TURNSTILE_SECRET_KEY, RESEND_API_KEY
 
 const CONTACT_TO = 'carhartconsulting@outlook.com';
-// Sending domain verified in Resend; rosscarhart.com is not verified there yet.
-const CONTACT_FROM = 'Portfolio <leads@pittsburghdivorces.com>';
+// Resend free plan allows only one verified domain (pittsburghdivorces.com).
+// This "from" is only ever seen by CONTACT_TO (self); replies go to the sender
+// via reply_to below. To send from @rosscarhart.com, upgrade Resend and verify it.
+const CONTACT_FROM = 'Ross Carhart Portfolio <portfolio@pittsburghdivorces.com>';
 
 function json(body, status = 200) {
     return new Response(JSON.stringify(body), {
