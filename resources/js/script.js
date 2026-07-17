@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
     });
 });
-// ------- Contact form (Turnstile + /api/contact) ------- //
+// ------- Contact form (Web3Forms) ------- //
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('form');
     if (!form) return;
@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         successMsg.style.display = 'none';
         errorMsg.style.display = 'none';
 
+        // Require the Turnstile widget to be solved before sending
         const token = form.querySelector('[name=cf-turnstile-response]')?.value;
         if (!token) {
             errorMsg.textContent = 'Please complete the security check.';
@@ -66,24 +67,17 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending…';
         try {
-            const res = await fetch('/api/contact', {
+            const res = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    name: form.name.value,
-                    email: form.email.value,
-                    company: form.company.value,
-                    need: form.need.value,
-                    message: form.message.value,
-                    turnstileToken: token,
-                }),
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(Object.fromEntries(new FormData(form))),
             });
             const out = await res.json();
-            if (out.ok) {
+            if (out.success) {
                 form.reset();
                 successMsg.style.display = 'block';
             } else {
-                errorMsg.textContent = out.error || 'Something went wrong — please try again.';
+                errorMsg.textContent = out.message || 'Something went wrong — please try again.';
                 errorMsg.style.display = 'block';
             }
         } catch {

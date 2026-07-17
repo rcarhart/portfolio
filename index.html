@@ -461,6 +461,13 @@
             <p class="contact-blurb">Tell me a bit about your project and I'll get back to you within one business day. Prefer email? Reach me directly at <a href="mailto:carhartconsulting@outlook.com">carhartconsulting@outlook.com</a>.</p>
         </div>
         <form class="contact-form" id='form'>
+            <!-- Web3Forms: free, no backend, delivers to the inbox tied to this access key.
+                 Independent of pittsburghdivorce / Resend. -->
+            <input type="hidden" name="access_key" value="ff6d044d-9e74-4a33-9bd1-e920e73e1567">
+            <input type="hidden" name="subject" value="New inquiry from rosscarhart.com">
+            <input type="hidden" name="from_name" value="Ross Carhart Portfolio">
+            <!-- Honeypot spam trap (bots fill it, humans don't) -->
+            <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off">
             <div class="form-row">
                 <div class="form-group">
                     <label for="name">Name</label>
