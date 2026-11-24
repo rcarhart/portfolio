@@ -66,7 +66,7 @@ rcarhart.github.io/
 ## Page Sections (index.html)
 
 1. Header — animated particles background, hamburger nav, dynamic subtitle cycling through "Data Visualization", "Data Engineering", "Analytics Engineering"
-2. About — bio + horizontal career timeline (TruFoodMfg → GNC → Doner Media → Abercrombie & Fitch)
+2. About — bio + horizontal career timeline (TruFoodMfg → GNC → Doner Media → Abercrombie & Fitch: Sr. Data Strategist → Sr. Data Engineer)
 3. Stats banner — $5M+ cost savings, 200% subscription growth, 30% pipeline reduction, 8+ years experience
 4. Visualizations — grid gallery of Tableau dashboards with screenshots
 5. References — carousel with two testimonials (Pete Lawson, Nicole Peduto)
