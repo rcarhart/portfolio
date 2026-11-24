@@ -58,7 +58,8 @@ rcarhart.github.io/
 │   │   ├── grid.css            # Responsive grid system
 │   │   └── images/             # Project screenshots and profile photos
 │   └── docs/
-│       └── Ross_Carhart_Resume.pdf
+│       ├── Ross_Carhart_Resume.pdf     # downloadable resume (generated — don't hand-edit)
+│       └── resume-pdf-source.html      # source for the PDF; edit this, then regenerate (see below)
 └── vendors/
     └── fonts/fontawesome-free-6.5.1-web/
 ```
@@ -94,3 +95,16 @@ rcarhart.github.io/
 - `app.js` — fades the subtitle text in/out through a list of specialties on a timer
 - `script.js` — handles hamburger toggle, smooth scroll-to-anchor, contact form captcha validation
 - `particles.json` — controls particle density, speed, hover repulse, and click push effects; tweak this to change the header animation
+
+## Regenerating the resume PDF
+
+`resources/docs/Ross_Carhart_Resume.pdf` is printed from `resources/docs/resume-pdf-source.html` (Lato via Google Fonts, US Letter, must stay one page). Edit the HTML, then:
+
+```bash
+C=$(find ~/.cache/puppeteer/chrome -name chrome -type f | head -1)
+"$C" --headless --no-sandbox --no-pdf-header-footer --virtual-time-budget=8000 \
+  --print-to-pdf=resources/docs/Ross_Carhart_Resume.pdf \
+  "file://$PWD/resources/docs/resume-pdf-source.html"
+```
+
+Check the page count (`grep -a /Count` should say 1). Keep `resume.html` in step with it.
